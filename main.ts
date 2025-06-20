@@ -36,6 +36,9 @@ export default class ShowStatsPlugin extends Plugin {
       const totalUniqueTags = tagSet.size;
       const tagsPerNote = totalNotes > 0 ? (totalTagUsages / totalNotes).toFixed(1) : "0";
 
+      // Expose global async function to show last modified notes
+      (window as any).showLastModifiedNotes = this.showLastModifiedNotes.bind(this);
+
       return `
 📄 **Total Notes:** ${totalNotes}  
 ✍️ **Total Words:** ${totalWords.toLocaleString()}  
@@ -50,5 +53,20 @@ export default class ShowStatsPlugin extends Plugin {
 
   onunload() {
     delete (window as any).showStats;
+  }
+
+  async showLastModifiedNotes(numItems = 10, excludeFolder = "Templates"): Promise<string> {
+    const files = this.app.vault.getMarkdownFiles()
+      .filter(file => !file.path.startsWith(excludeFolder + "/"));
+
+    const sorted = files
+      .sort((a, b) => b.stat.mtime - a.stat.mtime)
+      .slice(0, numItems);
+
+    const lines = sorted.map(f =>
+      `- [[${f.basename}]] (Last modified: ${new Date(f.stat.mtime).toLocaleDateString()})`
+    );
+
+    return lines.join("\n");
   }
 }
