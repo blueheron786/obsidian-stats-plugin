@@ -4,9 +4,9 @@ export default {
   input: 'main.ts',
   output: {
     file: 'main.js',
-    format: 'cjs'
+    format: 'cjs',
+    exports: 'default'
   },
-  plugins: [
-    typescript()
-  ]
+  external: ['obsidian'], // Important: don't bundle Obsidian
+  plugins: [typescript()]
 };

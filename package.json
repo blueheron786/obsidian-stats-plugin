@@ -17,9 +17,9 @@
   "author": "Blue Heron",
   "license": "MIT",
   "devDependencies": {
-    "rollup": "^3.0.0",
+    "obsidian": "^1.8.7",
+    "rollup": "^3.29.5",
     "rollup-plugin-typescript2": "^0.31.1",
     "typescript": "^5.0.0"
-  },
-  "dependencies": {}
+  }
 }
