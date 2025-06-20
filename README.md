@@ -11,13 +11,7 @@ You can grab it from the Obsidian app, Community Plugins section.
 
 1. Clone or download this repo.
 2. Build the plugin with `npm install` and `npm run build`.
-3. Copy the resulting `main.js`, `manifest.json`, and optionally `styles.css` to your vault plugin folder:
-
-<your-vault>/.obsidian/plugins/vault-stats/
-
-swift
-Copy
-Edit
+3. Copy the resulting `main.js`, `manifest.json`, and optionally `styles.css` to your vault plugin folder: <your-vault>/.obsidian/plugins/vault-stats/
 
 4. Enable the plugin in Obsidian's Community Plugins settings.
 
