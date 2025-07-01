@@ -1,9 +1,15 @@
 import { Plugin } from "obsidian";
 
+declare global {
+  interface Window {
+    showStats: () => Promise<string>;
+    showLastModifiedNotes: (numItems?: number, excludeFolder?: string) => Promise<string>;
+  }
+}
+
 export default class ShowStatsPlugin extends Plugin {
   async onload() {
-    // Expose global async function on window
-    (window as any).showStats = async () => {
+    window.showStats = async () => {
       const files = this.app.vault.getMarkdownFiles();
       const metaCache = this.app.metadataCache;
 
@@ -47,8 +53,7 @@ export default class ShowStatsPlugin extends Plugin {
       `.trim();
     };
 
-    (window as any).showLastModifiedNotes = async(numItems = 10, excludeFolder = "Templates"): Promise<string> => {
-      
+    window.showLastModifiedNotes = async (numItems = 10, excludeFolder = "Templates"): Promise<string> => {
       const files = this.app.vault.getMarkdownFiles()
         .filter(file => !file.path.startsWith(excludeFolder + "/"));
 
@@ -65,7 +70,7 @@ export default class ShowStatsPlugin extends Plugin {
   }
 
   onunload() {
-    delete (window as any).showStats;
-    delete (window as any).showRecentNotes;
+    delete window.showStats;
+    delete window.showLastModifiedNotes;
   }
 }
