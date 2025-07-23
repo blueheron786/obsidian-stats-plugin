@@ -2,8 +2,8 @@ import { Plugin } from "obsidian";
 
 declare global {
   interface Window {
-    showStats: () => Promise<string>;
-    showLastModifiedNotes: (numItems?: number, excludeFolder?: string) => Promise<string>;
+    showStats?: () => Promise<string>;
+    showLastModifiedNotes?: (numItems?: number, excludeFolder?: string) => Promise<string>;
   }
 }
 
@@ -17,7 +17,7 @@ export default class ShowStatsPlugin extends Plugin {
 
       let totalWords = 0;
       for (const file of files) {
-        const content = await this.app.vault.read(file);
+        const content = await this.app.vault.cachedRead(file);
         totalWords += content.split(/\s+/).filter(Boolean).length;
       }
 
