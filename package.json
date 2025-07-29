@@ -1,6 +1,6 @@
 {
   "name": "vault-stats",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Obsidian plugin to expose vault stats for DataviewJS",
   "main": "main.js",
   "scripts": {
